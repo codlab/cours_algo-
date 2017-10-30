@@ -74,4 +74,4 @@ Vous pouvez me contacter directement sur mon adresse mail : kevin.leperf_Q_nonop
 # Licenses
 
 Repository sous license GPL v3
-L'ensemble des documents écris et accessible le sont sous license Creative Commons CC BY-NC-SA
+L'ensemble des documents écrits qui seraient directement extrait de ce dépôt le sont sous license Creative Commons CC BY-NC-SA
