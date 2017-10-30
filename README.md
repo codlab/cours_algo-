@@ -25,7 +25,32 @@ _Note : A l'heure actuelle, ce repository présente la structure des éléments 
 
 ## Exalgo
 
+### Lexique du langage
+
+### Apports & philosophie
+
 ## Algorigrammes
+
+### Forme
+
+### Factorisation
+
+### Synchrone versus Asynchrone
+
+## Mise en place
+
+### Boites noires & organes
+
+### Implémentation & amélioration continue
+
+# Cas d'usage
+
+_Pour changer et aller plus vite, plus loin, il est proposé de travailler sur la technologie blockchain avec le prisme de l'ERC20 pour Ethereum_
+
+## Domaine de définition
+
+## Création d'un token
+
 
 # Mises à jour
 
