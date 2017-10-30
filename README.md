@@ -67,6 +67,10 @@ Processus :
 - titre & description explicite de l'amélioration souhaitée/proposée
 - validation et ajout dans la branche principale du projet
 
+## Contactez-moi
+
+Vous pouvez me contacter directement sur mon adresse mail : kevin.leperf_Q_nonopn.com
+
 # Licenses
 
 Repository sous license GPL v3
