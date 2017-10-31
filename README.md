@@ -1,7 +1,5 @@
 # Cours d'Algorithmique++
 
-Petit repo de documentation pour appréhender pleinement l'algorithmique
-
 _Note : A l'heure actuelle, ce repository présente la structure des éléments qui vont/sont/seront (être) abordés_
 
 - Introduction
@@ -13,6 +11,12 @@ _Note : A l'heure actuelle, ce repository présente la structure des éléments 
   - Algorigrammes
 - Mises à jour
 
+# Préambule
+
+Petit repo de documentation pour appréhender pleinement l'algorithmique.
+Ce document n'a pas vocation à faire un cours complet et exhaustif de tous les concepts d'algorithmiques (simples ou avancés) mais d'être un support permettant de pouvoir se plonger un peu plus en détail dans des notions vues par exemple.
+
+De plus, le support évoluant dans le temps, il est possible de vérifier l'existence de nouvelles version directement sur le lieu de stockage en ligne de celui-ci : [https://github.com/codlab/cours_algo-](https://github.com/codlab/cours_algo-). Se référer à la partie "license" pour plus de détail sur le contexte d'usage possible.
 
 _Note : Ce document ne met pas en exergue, actuellement, la complexité des algorithmes. Ce point sera l'objet d'une mise à jour ultérieure_
 
