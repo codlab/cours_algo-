@@ -11,6 +11,10 @@ _Note : A l'heure actuelle, ce repository présente la structure des éléments 
 - Algorigrammes
 - Mises à jour
 
+## Historique
+
+- v1.0 : version initiale du document
+
 # Préambule
 
 Petit repo de documentation pour appréhender pleinement l'algorithmique.
@@ -156,7 +160,7 @@ Processus :
 
 ## Contactez-moi
 
-Vous pouvez me contacter directement sur mon adresse mail : kevin.leperf_Q_nonopn.com
+Vous pouvez me contacter directement sur mon adresse mail : kevin.leperf@nonopn.com
 
 # Licenses
 
