@@ -425,6 +425,24 @@ fin
 La création de token dans une blockchain :
 [https://theethereum.wiki/w/index.php/ERC20_Token_Standard](https://theethereum.wiki/w/index.php/ERC20_Token_Standard)
 
+# Pour aller plus loin !
+
+Je vous propose d'aller plus loin et de travailler sur :
+
+- la création d'une calculatrice simple
+  - cette calculatrice demandera successivement à un utilisateur de rentrer 1 nombre, un opérateur et un 2eme nombre pour faire un résultat intermédiaire avant de continuer par un nouvel opérateur etc... Notez l'usage d'une boucle
+  - mettre un maximum d'opérateurs RESULTAT = VALEUR OPERATEUR VALEUR (division, multiplication, soustraction, addition, etc...)
+  - vous pouvez partir du principe que des fonctions existent déjà et vous permettent de lire un nombre, une chaine de caractère - à vous de choisir un nom "explicite" et "cohérent" avec leur tâche
+  - prenez vos téléphones et faites beaucoup de croquis du fonctionnement, la clé d'un bon algorithme reste encore une bonne modélisation d'un problème
+
+- la création d'une calculatrice plus évoluée
+  - en reprenant la calculatrice précédente, implémentez la gestion des parenthèses ( et ) pour la gestion de priorités
+  - analysez bien les appels de fonctions que vous allez déclarer pour gérer la demande d'opérateur, de nombre, de parenthèses et les appels récursifs des uns dans les autres (oups, spoiler alert!)
+
+- aller plus loin encore ! Vous vous souvenez de la fonction de lecture d'un nombre ou d'un opérateur ? Elles n'existent pas forcément dans la vie réelle, donc à partir d'une simple fonction qui elle donne une chaine de caractère et qui existerait réellement, proposez une implémentation de 2 fonctions qui donneraient un `nombre relatif` et un `operateur`
+
+- parce que travailler sur des ABR (Arbre Binaire de Recherche) et des tableaux reste sympathique, imaginez une solution de recherche dans un tableau trié par la technique de la dichotomie. De la même manière, implémentez un tri par dichotomie d'un tableau via l'ajout d'un ABR "en dehors" de ce tableau.
+
 # Mises à jour
 
 Les pull-requests sont acceptés. La logique de validation reste dans le spectre de :
