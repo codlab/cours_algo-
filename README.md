@@ -71,6 +71,54 @@ C'est ici qu'une forme est proposée par le monde la recherche. Exalgo est un la
 
 De nombreuses pages issues du Labri et des documentations complètes sont disponibles en ligne pour permettre d'appréhender la mise en place et en forme. Par exemple sur [https://www.labri.fr/perso/robson/cours/exalgo.html](https://www.labri.fr/perso/robson/cours/exalgo.html)
 
+*Attention : ce support ne contient pas encore une liste exhaustive des instructions "utilisables" en algorithme tel que présentait pendant les interventions, néanmoins le lien précédent suffit actuellement.*
+
+### Selon que
+
+Si on reprend l'idée d'une structure conditionnelle comme vue durant l'intervention, on peut noter au moins 2 cas d'utilisation de conditions :
+```
+si ... alors
+  ...
+sinon
+  ...
+fin si
+```
+
+et
+
+```
+si ... alors
+  ...
+sinon si ... alors
+  ...
+sinon si ... alors
+  ...
+sinon
+```
+
+Ici, les "si sinon si sinon" peuvent prendre énormément de types de conditions en attente (réduction de valeurs booléennes). Le selon que est intéressant pour tester dans une variable un ensemble de valeur possible de celle-ci. On la note :
+
+```
+selon que ma_variable est
+  cas VALEUR1:
+    //faire une action
+    sortir
+  cas VALEUR2:
+    //faire une autre action
+    sortir
+  cas VALEUR3:
+  cas VALEUR4:
+    //faire une dernière action
+    sortir
+  cas VALEUR5:
+  par défaut :
+    //rien - par exemple
+fin selon que
+```
+
+Ne pas oublier d'utiliser le mot clé "sortir" afin de vous assurer que le programme n'executera pas les blocs des selon que suivant (se souvenir qu'un des reliquats de l'ère des "labels" se retrouve dans cette notation du selon que).
+
+
 ### Apports & philosophie
 
 Tout l'intérêt d'Exalgo réside donc dans :
@@ -93,6 +141,10 @@ L'algorithmique avancée n'est pas uniquement de savoir effectuer une recherche 
 - **détecter** des optimisations
 
 ### Factorisation
+
+On parle de factorisation de code dès qu'il est possible d'utiliser un bloc de code d'une même manière (à la variable près) dans un autre environnement du programme. On parle alors du processus qui consiste à extraire ce code dans une fonction qu'il s'agit d'une refactorisation.
+
+Dans l'idéal, de telles factorisation du code doivent intervenir dès que sa lecture devient soit trop dense soit contextuellement intéressante.
 
 ### Synchrone versus Asynchrone
 
@@ -135,13 +187,243 @@ Dans le cadre d'un projet, toutes les techniques d'améliorations continues doiv
 
 _Pour changer et aller plus vite, plus loin, il est proposé de travailler sur la technologie blockchain avec le prisme de l'ERC20 pour Ethereum_
 
-## Domaine de définition
+## Manipulation de types de données autour des tableaux
 
-- voir ce qui a été fait sur la session de 2 jours - un complément va être mis en place assez rapidement -
+exemples de tableaux dans un style "haut niveau" (c'est-à-dire que les langages, implémentations, traitements abstraient un maximum la logique de la gestion mémoire d'un tableau jusqu'à sa destruction - on retrouve cette vision dans des langages comme le JavaScript):
+
+```
+var tableau_de_resultats: tableau d'entier = []
+```
+ou si il contient des valeurs
+```
+var tableau_de_resultats: tableau d'entier = [10, 5, 4]
+```
+
+obtenir la taille d'un tableau : `taille(<tableau>)`
+
+si besoin d'allocation d'un tableau
+```
+var tableau_de_prenoms: tableau de chaine de caracteres = allouer(50)
+tableau_de_prenoms[0] = "claire"
+tableau_de_prenoms[1] = "leopold"
+```
+
+### Manipulation d'un tableau
+
+Etant donné la nature de ce support dalgorithmie, on se propose de donner dans la suite, une définition "algorithmique" des traitements sur un tableau
+
+5 méthodes de bases :
+- allouer
+- récupérer
+- ajouter
+- modifier
+- supprimer
+
+_Noter que ces 5 traitements sont habituellement retrouvable pour tout type de structure ou de classes. En effet, l'allocation, ajout, modification, supression etc... sont des traitements bien souvent nécessaires pour gérer toute interaction avec un objet_
+
+
+- allouer :
+tableau = allouer(50) ou tableau = [] ou tableau = [5, 10, ....]
+
+- récupérer
+tableau[2] ou tableau[indice]
+
+- ajouter
+dans le format "souple" (haut niveau) :
+pousser(<tableau>, <valeur>)
+
+exemple :
+var tableau: tableau d'entier = []
+pousser(tableau, 50)
+//tableau = [50]
+pousser(tableau, 9)
+//tableau = [50, 9]
+
+var tableau: tableau de tableau d'entier = []
+var colonne_1: tableau d'entier = [10, 5]
+var colonne_2: tableau d'entier = [1]
+
+pousser(tableau, colonne_1)
+//tableau = [ [10, 5] ]
+pousser(tableau, colonne_2)
+//tableau = [ [10, 5], [1] ]
+
+Ici, nous allons déclarer l'algorithme qui permet à bas niveau d'avoir une gestion haut niveau :
+- ici manipuler le tableau avec une autre variable "indice"
+
+```
+type Tableau
+debut
+  tableau: tableau
+  taille: entier
+  taille_maximale: entier
+fin type
+
+fonction allouer(taille_tableau: entier): Tableau
+debut
+  var nouveau_tableau: Tableau = allouer()
+  nouveau_tableau.tableau = allouer(nouvelle_taille)
+  nouveau_tableau.taille = 0
+  nouveau_tableau.taille_maximale = nouvelle_taille
+
+  retourner nouveau_tableau
+fin
+
+fonction copie(tableau_out: Tableau, tableau_in: Tableau)
+debut
+  pour variable indice de 0 à tableau_in.taille
+  debut
+    pousser(tableau_out, tableau_in.tableau[indice])
+  fin
+fin
+
+fonction pousser(tableau: Tableau, contenu)
+debut
+  var indice: entier = tableau.taille
+  si indice >= taille_maximale
+    var nouvelle_taille: entier = (tableau.taille + 1) * 2
+    variable tableau_final: Tableau = allouer(nouvelle_taille)
+
+    copie(tableau_final, tableau)
+
+    detruire(tableau.tableau)
+    tableau.tableau = tableau_final.tableau
+    tableau.taille_maximale = tableau_final.taille_maximale
+  fin si
+
+  tableau.tableau[indice] = contenu
+  tableau.taille = indice + 1
+fin
+```
+
+De fait, nous pouvons maintenant, avec notre notation "bas niveau", nous permettre de simplifier l'écriture de nos algorithmes
+```
+var tableau: Tableau = allouer()
+pousser(tableau, 2)
+```
+
+
+- supprimer
+
+```
+fonction supprimer(tableau: Tableau, indice: entier)
+debut
+  si tableau.taille > indice
+    pour index de indice à tableau.taille - 2
+    debut
+      tableau.tableau[index] = tableau.tableau[index + 1]
+    fin pour
+    tableau.taille = tableau.taille - 1
+  fin si
+fin
+```
+
+- modification
+
+```
+tableau[0] = 1
+```
+
+*Pour aller plus loin : Il peut être envisagé de faire évoluer les fonctions de modifications pour prendre en compte des cas d'erreur : tentative d'accès en dehors du tableau, modification à un indice qui n'existe pas encore etc...*
+
+## Création d'une liste chaînée
+
+Une liste chaînée est un type particulier que nous nous proposons d'implémenter ici.
+
+Dans l'idée il s'agit de blocs qui se suivent les uns à la suite des autres. On parle de liste chaînée "avant" ou liste chaînée "arrière" en fonction du lien des blocs les uns avec les autres.
+
+Par exemple :
+
+```
+type Block
+  valeur: entier
+  precedent: Block
+fin type
+
+type Liste
+  tete: Block
+fin type
+```
+
+Serait une liste chaînée "arrière", en effet, le block de tête connait son "précédent", les manipulations de la liste vont donc "contextuellement" servir pour des listes qui évoluent dans le temps par exemple où le dernier élément à une importance plus grande que le tout premier ajouté. Il ne s'agit ici surtout que du résultat d'un choix de nommage dans le cadre d'un contexte donné à un problème !
+
+Quelques exemples d'implémentations de fonctions pour manipuler cette liste
+
+```
+fonction ajouterEnTete(liste: Liste, block: Block)
+debut
+  block.precedent = liste.tete
+  liste.tete = block
+fin
+```
+
+```
+fonction ajouterEnQueue(liste: Liste, block: Block)
+debut
+  si liste.tete == vide alors
+    liste.tete = block
+  sinon
+    var block_actuel: Block = liste.tete
+    tant que block_actuel.precedent != vide
+      block_actuel = block_actuel.precedent
+    fin tant que
+
+    block_actuel.precedent = bloc
+  fin si
+fin
+```
+
+
+## Algorithmes de tri
+
+
+**Gros TODO sur cette partie**
+**N'hésitez pas à effectuer une ouverture de ticket si la priorité doit être donné à cette partie ou si'il y a un oubli de ma part !**
+
+### Tri par bulle
+
+### Tri par sélection
+
+### Tri par arbre binaire de recherche
+
+
+## Transformation de blocs vers un "ledger" de transactions
+
+Ce cas présente l'utilisation d'une bibliothèque qui permettrait à un programme d'intéragir avec le réseau de la blockchain Ethereum pour transformer les blocs synchronisés vers une base de donnée à partir de laquelle un service web pourrait lire les transactions d'une adresse, recherche de data etc...
+
+```
+fonction obtenirNumeroBlock(): entier
+fonction obtenirBlock(numero: entier, avec_transaction: booleen): Block
+
+fonction formaterTransaction(): tableau de chaine de caractere
+fonction enregistrerEnBaseDeDonnee(tableau: tableau de chaine de caractere)
+
+
+fonction synchroniser()
+  var indice: entier = 0
+  tant que vrai
+    const nombre_block: entier = obtenirNumeroBlock()
+
+    tant que indice <= nombre_block
+      const block: Block = obtenirBlock(indice, vrai)
+
+      pour tout transaction de block.transactions
+        const transaction_formattee: tableau de chaine de caracteres = formaterTransaction(transaction)
+        enregistrerEnBaseDeDonnee(transaction_formattee)
+      fin pour
+
+      indice = indice + 1
+    fin tant que
+
+    attendre(8) //secondes
+  fin tant que
+fin
+```
 
 ## Création d'un token
 
-- voir ce qui a été fait sur la session de 2 jours - un complément va être mis en place assez rapidement -
+La création de token dans une blockchain :
+[https://theethereum.wiki/w/index.php/ERC20_Token_Standard](https://theethereum.wiki/w/index.php/ERC20_Token_Standard)
 
 # Mises à jour
 
