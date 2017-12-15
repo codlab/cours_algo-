@@ -1,6 +1,6 @@
 # Cours d'Algorithmique++
 
-_Note : A l'heure actuelle, ce repository présente la structure des éléments qui vont/sont/seront (être) abordés_
+_Note : A l'heure actuelle, ce repository présente la structure des éléments qui vont/sont/seront (être) abordés - il s'agit principalement d'un support visant à faciliter la prise en main des notions vues durant les séances._
 
 - Introduction
 - Algorithmes & projet
