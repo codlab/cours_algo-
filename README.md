@@ -550,6 +550,74 @@ debut
   soit_meme.autour(utilisateur, rayon, utilisateurs)
   retourner utilisateurs
 fin
+
+fonction Noeud::pousser(utilisateur: Utilisateur)
+debut
+  soit_meme.utilisateurs.pousser(utilisateur)
+fin
+
+fonction Noeud::dispatcher(utilisateurs_max_par_zone: entier): Liste de Noeud
+debut
+  si soit_meme.utilisateurs.taille > utilisateurs_max_par_zone
+  debut
+    soit_meme.zones = nouveau Tableau de Noeud()
+    pour i de 0 à 3 par pas de 1
+    debut
+      soit_meme.zones.ajouter(nouveau Noeud(/* mettre les paramètres de description*/))
+    fin
+
+    pour chaque utilisateur de utilisateurs
+    debut
+      pour chaque zone de soit_meme.zones
+      debut
+        si zone.appartient(utilisateur)
+        debut
+          zone.pousser(utilisateur)
+          sortir_boucle
+        fin
+      fin
+    fin
+
+    soit_meme.utilisateurs.vider()
+
+    pour chaque zone de soit_meme.zones
+    debut
+      zone.dispatcher(utilisateurs_max_par_zone)
+    fin
+  fin si
+
+  retourner soit_meme.zones
+fin
+
+
+fonction Arbre::initialiser(utilisateurs: Liste d'Utilisateur, utilisateurs_max_par_zone: entier)
+debut
+  soit_meme.dispatcher(utilisateurs_max_par_zone)
+fin
+
+fonction Noeud::dispatcher(utilisateurs: Liste d'Utilisateur, utilisateurs_max_par_zone: entier)
+debut
+  soit_meme.utilisateurs = nouveau Liste d'Utilisateur()
+
+  pour chaque utilisateur de utilisateurs
+  debut
+    si soit_meme.appartient(utilisateur)
+    debut
+      soit_meme.utilisateurs.ajouter(utilisateur)
+      utilisateurs.supprimer(utilisateur)
+    fin
+  fin
+
+  si soit_meme.utilisateurs.taille > 1000
+  debut
+    soit_meme.zones = nouveau Tableau de Noeud()
+    pour i de 0 à 3 par pas de 1
+    debut
+      soit_meme.zones.ajouter(nouveau Noeud())
+      soit_meme.zones[i].dispatcher(soit_meme.utilisateurs, utilisateurs_max_par_zone)
+    fin
+  fin si
+fin
 ```
 
 ## Algorithmes de tri
