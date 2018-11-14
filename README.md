@@ -474,6 +474,70 @@ debut
 fin
 ```
 
+## Arbre & Cartographie
+
+### Arbres
+
+### Cartographie
+
+```
+type Coordonnées:
+debut enreg
+  latitude: flottant
+  longitude: flottant
+finenreg
+
+type Utilisateur:
+debut enreg
+  identifiant: chaine de caractères
+  coordonnées: Coordonnées
+finenreg
+
+type Noeud:
+debut enreg
+  utilisateurs: Liste d'Utilisateur
+  centre: Coordonnées
+  taille: entier
+  zones: Tableau de Noeud
+  niveau: entier
+finenreg
+
+type Arbre hérite de Noeud
+debut enreg
+  autour(utilisateur: utilisateur, rayon: flottant) : Liste d'Utilisateur
+finenreg
+```
+```
+
+fonction autour(utilisateur: Utilisateur, utilisateurs: Liste d'Utilisateur,
+                rayon: flottant): Liste d'Utilisateur
+debut
+  constante resultat = nouveau Tableau()
+
+  pour chaque element de la liste utilisateurs
+  debut
+    si distance(utilisateur, element) < rayon
+      resultat.ajouter(utilisateur)
+  fin
+
+  retourner resultat
+fin
+
+
+fonction Arbre::autour(utilisateur: Utilisateur, rayon: flottant): Liste d'Utilisateur
+debut
+  constante resultat = nouveau Tableau()
+
+  //parcours des noeuds
+  var noeud = soit_meme
+  
+  si noeud.zones est vide
+  sinon
+  fin sinon
+
+  retourner resultat
+fin
+```
 
 ## Algorithmes de tri
 
