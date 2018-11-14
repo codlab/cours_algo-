@@ -335,17 +335,118 @@ Dans l'idée il s'agit de blocs qui se suivent les uns à la suite des autres. O
 Par exemple :
 
 ```
-type Block
+type Noeud:
+enreg
   valeur: entier
-  precedent: Block
-fin type
+  suivant: Noeud
+finenreg
 
-type Liste
-  tete: Block
-fin type
+type Liste:
+enreg
+  tete: Noeud
+
+  Liste()
+  ajouter(valeur: entier): Liste
+  supprimer(index: entier): Liste
+  modifier(index: entier, valeur: entier): Liste
+finenreg
 ```
 
-Serait une liste chaînée "arrière", en effet, le block de tête connait son "précédent", les manipulations de la liste vont donc "contextuellement" servir pour des listes qui évoluent dans le temps par exemple où le dernier élément à une importance plus grande que le tout premier ajouté. Il ne s'agit ici surtout que du résultat d'un choix de nommage dans le cadre d'un contexte donné à un problème !
+
+
+### fonction allouer
+```
+fonction Liste::Liste()
+debut
+  liste.tete = vide
+fin
+```
+
+### fonction ajout
+```
+fonction Liste::ajouter(element: entier): Liste
+debut
+  var noeud: Noeud = nouveau Noeud();
+  noeud.valeur = element;
+  noeud.suivant = vide;
+
+  var tete: Noeud = soit_meme.tete;
+
+  si tete est non vide
+  debut
+    tant que tete.suivant est non vide
+    debut
+      tete = tete.suivant
+    fin
+
+    tete.suivant = noeud;
+  sinon
+    liste.tete = noeud;
+  fin si
+
+  retourner soit_meme
+fin
+
+var liste: Liste = nouvelle Liste();
+liste.ajouter(10)
+     .ajouter(20)
+```
+
+### fonction suppression
+```
+fonction supprimer(index_cible: enter): Liste
+debut
+  si soit_meme.tete est non vide
+  debut
+    var index: entier = 0;
+    var noeud: Noeud;
+
+    tant que noeud.suivant est non vide et index < index_cible
+    debut
+      si index == index_cible - 1
+      debut
+        var noeud_supprime: Noeud = noeud.suivant
+        noeud.suivant = noeud.suivant.suivant
+
+        libérer noeud_supprime
+      find
+
+      noeud = noeud.suivant
+      index ++
+    fin
+
+
+  fin si
+fin
+```
+
+### fonction modification
+```
+fonction modification(index: entier)
+debut
+  si soit_meme.tete est non vide
+  debut
+    var index: entier = 0;
+    var noeud: Noeud = soit_meme.tete;
+
+    tant que noeud est non vide et index < index_cible
+    debut
+      noeud = noeud.suivant
+      index ++
+    fin
+
+    si noeud est non vide
+    debut
+      noeud.valeur = valeur
+    find
+
+  fin si
+fin
+```
+
+### Modification pour une liste chaînée arrière
+
+Le block de tête connait son "précédent", les manipulations de la liste vont donc "contextuellement" servir pour des listes qui évoluent dans le temps par exemple où le dernier élément à une importance plus grande que le tout premier ajouté. Il ne s'agit ici surtout que du résultat d'un choix de nommage dans le cadre d'un contexte donné à un problème !
 
 Quelques exemples d'implémentations de fonctions pour manipuler cette liste
 
