@@ -500,16 +500,18 @@ debut enreg
   taille: entier
   zones: Tableau de Noeud
   niveau: entier
+
+  autour(utilisateur: utilisateur, rayon: flottant) : Liste d'Utilisateur
 finenreg
 
 type Arbre hérite de Noeud
 debut enreg
-  autour(utilisateur: utilisateur, rayon: flottant) : Liste d'Utilisateur
+  //autour est surchargé par Arbre
 finenreg
 ```
 ```
 
-fonction autour(utilisateur: Utilisateur, utilisateurs: Liste d'Utilisateur,
+fonction autourDeZone(utilisateur: Utilisateur, utilisateurs: Liste d'Utilisateur,
                 rayon: flottant): Liste d'Utilisateur
 debut
   constante resultat = nouveau Tableau()
@@ -523,19 +525,30 @@ debut
   retourner resultat
 fin
 
+fonction Noeud::autour(utilisateur: Utilisateur, rayon: flottant, utilisateurs: Liste d'Utilisateur)
+debut
+  si n'est pas ADistance(utilisateur, rayon)
+  debut
+    retourner
+  fin si
+
+  si soit_meme.zones est vide
+    constante trouvés = autourDeZone(utilisateur, soit_meme.utilisateurs, rayon)
+    utilisateurs.ajouterTout(trouvés)
+  sinon
+    soit_meme.zones[0].autour(utilisateur, rayon, utilisateurs)
+    soit_meme.zones[1].autour(utilisateur, rayon, utilisateurs)
+    soit_meme.zones[2].autour(utilisateur, rayon, utilisateurs)
+    soit_meme.zones[3].autour(utilisateur, rayon, utilisateurs)
+  fin sinon
+fin
+
 
 fonction Arbre::autour(utilisateur: Utilisateur, rayon: flottant): Liste d'Utilisateur
 debut
-  constante resultat = nouveau Tableau()
-
-  //parcours des noeuds
-  var noeud = soit_meme
-  
-  si noeud.zones est vide
-  sinon
-  fin sinon
-
-  retourner resultat
+  constant utilisateurs = nouveau Liste d'Utilisateur
+  soit_meme.autour(utilisateur, rayon, utilisateurs)
+  retourner utilisateurs
 fin
 ```
 
